@@ -39,7 +39,7 @@ if (isset($_POST["btnsubmit"])) {
         </div>
         <?php
          $obj->mailSender($id,$name, $age, $weight, $gender, $addr, $cno, $med, $date,$time,$report);
-         $obj->mailAdmin($name);
+         $obj->mailAdmin($name,$time,$date,$cno);
         header("location:index.php");
         exit();
 

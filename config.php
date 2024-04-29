@@ -236,7 +236,7 @@ try {
 }
 }
 
-function mailAdmin($name){
+function mailAdmin($name,$time,$date,$cno){
 /*
     $qry = $this->conn->query("SELECT * FROM users WHERE id= '$pid'");
         $qry->execute();
@@ -277,7 +277,7 @@ try {
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
     $mail->Subject = 'Request for apointment';
-    $mail->Body    = 'You Have request for appointment from the user: '.$name;
+    $mail->Body    = 'You Have request for appointment from the user: '.$name.'<br> Contact :'.$cno.'<br> Time:'.$time.'<br> Date: '.$date;
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
