@@ -264,7 +264,7 @@ try {
 
     //Recipients
     $mail->setFrom('krutikthakar2539@gmail.com', 'Mailer');
-    $mail->addAddress('krutikthakar2539@gmail.com','Admin' );     //Add a recipient
+    $mail->addAddress('drprapti.009@gmail.com','Admin' );     //Add a recipient
     //$mail->addAddress($reciver);               //Name is optional
     $mail->addReplyTo('info@example.com', 'Information');
    // $mail->addCC('cc@example.com');
