@@ -1,5 +1,5 @@
 <style>
-    form { 
+    form {
         margin-top: 50px;
         margin-left: 50px;
         margin-right: 50px;
@@ -11,7 +11,15 @@
 require "config.php";
 
 $obj = new PetientData();
+
 if (isset($_POST["btnsubmit"])) {
+
+    $date = $_POST['date']; // Assuming you're submitting the form using POST method
+
+    $currentDate = date('Y-m-d');
+    if ($date < $currentDate) {
+        echo '<div class="alert alert-danger" role="alert">Please select a future date.</div>';
+    }
 
     $id = $_POST['txtid'];
     $name = $_POST['txtname'];
@@ -29,7 +37,7 @@ if (isset($_POST["btnsubmit"])) {
         $report = "..reports/" . $name . "_report.pdf";
         move_uploaded_file($_FILES['reportfile']['tmp_name'], "reports/" . $name . "_report.pdf");
     }
-    $cnt = $obj->insertData($id, $name,$ref, $age, $weight, $gender, $addr, $cno, $med, $date,$time,$report);
+    $cnt = $obj->insertData($id, $name, $ref, $age, $weight, $gender, $addr, $cno, $med, $date, $time, $report);
 
     if ($cnt > 0) {
 
@@ -38,8 +46,8 @@ if (isset($_POST["btnsubmit"])) {
             Data inserted Successfully
         </div>
         <?php
-         $obj->mailSender($id,$name,$ref, $age, $weight, $gender, $addr, $cno, $med, $date,$time,$report);
-         //$obj->mailAdmin($name,$time,$date,$cno);
+        $obj->mailSender($id, $name, $ref, $age, $weight, $gender, $addr, $cno, $med, $date, $time, $report);
+        //$obj->mailAdmin($name,$time,$date,$cno);
         header("location:index.php");
         exit();
 
@@ -49,9 +57,9 @@ if (isset($_POST["btnsubmit"])) {
         <div class="alert alert-danger" role="alert">
             Something Went Wrong!!! Not Inserted
         </div>
-    <?php
+        <?php
     }
-   
+
 
 
 }
@@ -70,7 +78,7 @@ if (isset($_POST["btnsubmit"])) {
             <label for="name" class="sr-only">Name</label>
             <input name="txtname" type="text" class="form-control" id="name" placeholder="Enter Your Name" required>
         </div>
-        
+
         <div class="form-group mx-sm-5 mb-2">
             <label for="ref" class="sr-only">Reference</label>
             <input name="txtref" type="text" class="form-control" id="ref" placeholder="Enter Your Reference" required>
@@ -105,7 +113,7 @@ if (isset($_POST["btnsubmit"])) {
         </div>
 
         <div class="form-group mx-sm-5 mb-2">
-            <label for="cno" class="sr-only">Contect No</label>
+            <label for="cno" class="sr-only">Contact No</label>
             <input name="txtcno" type="text" class="form-control" id="cno" placeholder="enter Contect Number">
         </div>
 
@@ -144,14 +152,14 @@ if (isset($_POST["btnsubmit"])) {
                 aria-expanded="false">
                 ---Choose Time---
             </button> -->
-            <select class="bg-secondary text-light border rounded" style="margin-left: 48px; padding: 10px;" name="time">
-                <option value="" >---Choose Time---</option>
-                <option value="5PM-6PM" >5PM to 6PM</option>
-                <option value="6PM-7PM" >6PM to 7PM</option>
-                <option value="7PM-8PM" >7PM to 8PM</option>
-                <option value="8PM-9PM" >8PM to 9PM</option>
-                <option value="9PM-10PM" >9PM to 10PM</option>
-            </select>
+        <select class="bg-secondary text-light border rounded" style="margin-left: 48px; padding: 10px;" name="time">
+            <option value="">---Choose Time---</option>
+            <option value="5PM-6PM">5PM to 6PM</option>
+            <option value="6PM-7PM">6PM to 7PM</option>
+            <option value="7PM-8PM">7PM to 8PM</option>
+            <option value="8PM-9PM">8PM to 9PM</option>
+            <option value="9PM-10PM">9PM to 10PM</option>
+        </select>
         <!-- </div> -->
 
         <div class="form-group mx-auto text-center"> <!-- Add mx-auto and text-center classes to center-align -->

@@ -23,7 +23,7 @@ $rows = $obj->selectAll($pid);
 					<th>Weight</th>
 					<th>Gender</th>
 					<th>Address</th>
-					<th>Contect No</th>
+					<th>Contact No</th>
 					<th>Medicine</th>
 					<th>Reports</th>
 					<th>Time Slot</th>
