@@ -9,13 +9,13 @@
 <?php
 
 require "config.php";
-require "mailer.php";
 
 $obj = new PetientData();
 if (isset($_POST["btnsubmit"])) {
 
     $id = $_POST['txtid'];
     $name = $_POST['txtname'];
+    $ref = $_POST['txtref'];
     $age = $_POST['txtage'];
     $weight = $_POST['txtweight'];
     $gender = $_POST['gender'];
@@ -26,10 +26,10 @@ if (isset($_POST["btnsubmit"])) {
     $time = $_POST['time'];
     $report = "";
     if (isset($_FILES['reportfile'])) {
-        $report = "reports/" . $name . "_report.pdf";
+        $report = "..reports/" . $name . "_report.pdf";
         move_uploaded_file($_FILES['reportfile']['tmp_name'], "reports/" . $name . "_report.pdf");
     }
-    $cnt = $obj->insertData($id, $name, $age, $weight, $gender, $addr, $cno, $med, $date,$time,$report);
+    $cnt = $obj->insertData($id, $name,$ref, $age, $weight, $gender, $addr, $cno, $med, $date,$time,$report);
 
     if ($cnt > 0) {
 
@@ -38,8 +38,8 @@ if (isset($_POST["btnsubmit"])) {
             Data inserted Successfully
         </div>
         <?php
-         $obj->mailSender($id,$name, $age, $weight, $gender, $addr, $cno, $med, $date,$time,$report);
-         $obj->mailAdmin($name,$time,$date,$cno);
+         $obj->mailSender($id,$name,$ref, $age, $weight, $gender, $addr, $cno, $med, $date,$time,$report);
+         //$obj->mailAdmin($name,$time,$date,$cno);
         header("location:index.php");
         exit();
 
@@ -69,6 +69,11 @@ if (isset($_POST["btnsubmit"])) {
         <div class="form-group mx-sm-5 mb-2">
             <label for="name" class="sr-only">Name</label>
             <input name="txtname" type="text" class="form-control" id="name" placeholder="Enter Your Name" required>
+        </div>
+        
+        <div class="form-group mx-sm-5 mb-2">
+            <label for="ref" class="sr-only">Reference</label>
+            <input name="txtref" type="text" class="form-control" id="ref" placeholder="Enter Your Reference" required>
         </div>
 
         <div class="form-group mx-sm-5 mb-2">

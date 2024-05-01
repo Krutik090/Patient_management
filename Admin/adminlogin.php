@@ -14,8 +14,12 @@ $obj = new PetientData();
       $password = $_POST['txtpassword'];
 
       //checks the creadencials with help of login method
-      $obj->adminLogin($email,$password);
-    
+      $result = $obj->adminLogin($email,$password);
+      if($result == true){
+        header("location:admincontrol.php");
+      }else{
+        echo '<div class="alert alert-danger" role="alert">' . $result . '</div>';
+      }
       }
       else{
         ?>

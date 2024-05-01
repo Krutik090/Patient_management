@@ -3,29 +3,34 @@
 <?php
 
 $obj = new PetientData();
-if(isset($_SESSION['username'])){
+if (isset($_SESSION['username'])) {
   header("location:index.php");
 }
 // Check if submit button is pressed
-  if(isset($_POST['btnsubmit'])){
-    //Check if Both filed are filled 
-    if(!empty($_POST['txtemail']) and !empty($_POST['txtpassword'])){
-      $email = $_POST['txtemail'];
-      $password = $_POST['txtpassword'];
-      //checks the creadencials with help of login method
-      $obj->login($email,$password);
-      if($obj){ header("location:index.php"); }
-      }
-      else{
-        ?>
-        <div class="alert alert-danger" role="alert">
-          Fill Both Fields
-        </div> 
-     <?php  
-      }
+if (isset($_POST['btnsubmit'])) {
+  //Check if Both filed are filled 
+  if (!empty($_POST['txtemail']) and !empty($_POST['txtpassword'])) {
+    $email = $_POST['txtemail'];
+    $password = $_POST['txtpassword'];
+    //checks the creadencials with help of login method
+    $result = $obj->login($email, $password);
+    if ($result === true) {
+      // Redirect or do something upon successful login
+      header("location:index.php");
+    } else {
+      // Display error message
+      echo '<div class="alert alert-danger" role="alert">' . $result . '</div>';
     }
-    
-  
+  } else {
+    ?>
+    <div class="alert alert-danger" role="alert">
+      Fill Both Fields
+    </div>
+  <?php
+  }
+}
+
+
 
 ?>
 <main class="form-signin w-50 m-auto">
@@ -41,10 +46,10 @@ if(isset($_SESSION['username'])){
       <input name="txtpassword" type="password" class="form-control" id="floatingPassword" placeholder="Password">
       <label for="floatingPassword">Password</label>
     </div>
-    
+
 
     <button class="w-100 btn btn-lg btn-primary" type="submit" name="btnsubmit">Login</button>
-    <h6 class="mt-3">Don't have an account  <a href="register.php">Create your account</a></h6>
+    <h6 class="mt-3">Don't have an account <a href="register.php">Create your account</a></h6>
   </form>
 </main>
 <?php require "includes/footer.php"; ?>

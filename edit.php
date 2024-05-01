@@ -19,6 +19,7 @@ $obj = new PetientData();
 		    <tr>
 		      <th>PetientID</th>
 		      <th>Name</th>
+			  <th>Reference</th>
 		      <th>Age</th>
 		      <th>Weight</th>
               <th>Gender</th>
@@ -40,6 +41,7 @@ $obj = new PetientData();
 		   
 		     <td><?php echo $row->pid; ?></td>
 		     <td><?php echo $row->pname; ?></td>
+			 <td><?php echo $row->reference; ?></td>
              <td><?php echo $row->age; ?></td>
              <td><?php echo $row->pweight; ?></td>
              <td><?php echo $row->gender; ?></td>

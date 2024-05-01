@@ -22,6 +22,7 @@ if(isset($_GET["upd_id"])) {
     // furthur we can fill that data in the form so user can update it
     $rows=$obj->search($rid);
     $name = $rows->pname;
+    $ref = $rows->reference;
     $age = $rows->age;
     $weight=$rows->pweight;
     $gender = $rows->gender;
@@ -36,6 +37,7 @@ if(isset($_GET["upd_id"])) {
 // cheking if Update button is clicked or not
 if(isset($_POST['btnupdate'])){
         $name = $_POST['txtname'];
+        $ref = $_POST['txtref'];
         $age = $_POST['txtage'];
         $weight = $_POST['txtweight'];
         $gender = $_POST['gender'];
@@ -50,10 +52,10 @@ if(isset($_POST['btnupdate'])){
         if(isset($_FILES['reportfile'])){
            $report = "reports/".$name."_report.pdf";
            move_uploaded_file($_FILES['reportfile']['tmp_name'],"reports/".$name."_report.pdf");
-           $cnt = $obj->updateDataReport($rid,$name,$age,$weight,$gender,$addr,$cno,$med,$date,$report,$time);
+           $cnt = $obj->updateDataReport($rid,$name,$ref,$age,$weight,$gender,$addr,$cno,$med,$date,$report,$time);
         }else{
             // Otherwise call method without UPDATE Reports
-            $cnt = $obj->updateData($rid,$name,$age,$weight,$gender,$addr,$cno,$med,$date,$time);
+            $cnt = $obj->updateData($rid,$name,$ref,$age,$weight,$gender,$addr,$cno,$med,$date,$time);
     
         }
       
@@ -89,29 +91,34 @@ if(isset($_POST['btnupdate'])){
 	<form method="POST" action="update.php?upd_id=<?php echo $rid; ?>" class="form-inline" id="user_form" enctype="multipart/form-data">
 		
 		<div class="form-group mx-sm-5 mb-2">
-		    <label for="inputPassword2" class="sr-only">Name</label>
+		    <label for="name" class="sr-only">Name</label>
 		    <input name="txtname" type="text" class="form-control" id="name" value="<?php echo $name; ?>">
 		</div>
 
         <div class="form-group mx-sm-5 mb-2">
-		    <label for="inputPassword2" class="sr-only">Age</label>
+		    <label for="ref" class="sr-only">Reference</label>
+		    <input name="txtref" type="text" class="form-control" id="ref" value="<?php echo $ref; ?>">
+		</div>
+
+        <div class="form-group mx-sm-5 mb-2">
+		    <label for="age" class="sr-only">Age</label>
 		    <input name="txtage" type="text" class="form-control" id="age" value="<?php echo $age; ?>">
 		</div>  
 
         <div class="form-group mx-sm-5 mb-2">
-		    <label for="inputPassword2" class="sr-only">Weight</label>
+		    <label for="weight" class="sr-only">Weight</label>
 		    <input name="txtweight" type="text" class="form-control" id="weight" value="<?php echo $weight; ?>">
 		</div>
 
         <div class="form-group mx-sm-5 mb-2">
-		    <label for="inputPassword2" class="sr-only">Select Gender </label>
+		    <label for="gender" class="sr-only">Select Gender </label>
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="radio1" name="gender" value="male" 
+                <input type="radio" class="form-check-input" id="gender" name="gender" value="male" 
                 <?php if($gender=="male") echo "checked"; ?> >Male
                 <label class="form-check-label" for="radio1"></label>
             </div>
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="radio2" name="gender" value="female" 
+                <input type="radio" class="form-check-input" id="gender" name="gender" value="female" 
                 <?php if($gender=="female") echo "checked"; ?> >Female
                 <label class="form-check-label" for="radio2"></label>
             </div>
@@ -119,23 +126,23 @@ if(isset($_POST['btnupdate'])){
 		</div>
 
         <div class="form-group mx-sm-5 mb-2">
-		    <label for="inputPassword2" class="sr-only">Address</label>
-		    <textarea name="txtaddr" rows='3' cols='25' class="form-control"><?php echo $addr; ?>
+		    <label for="addr" class="sr-only">Address</label>
+		    <textarea name="txtaddr" rows='3' cols='25' id="addr" class="form-control"><?php echo $addr; ?>
             </textarea>
 		</div>
 
         <div class="form-group mx-sm-5 mb-2">
-		    <label for="inputPassword2" class="sr-only">Contect No</label>
+		    <label for="cno" class="sr-only">Contect No</label>
 		    <input name="txtcno" type="text" class="form-control" id="cno" value="<?php echo $cno; ?>">
 		</div>
 
         <div class="form-group mx-sm-5 mb-2">
-		    <label for="inputPassword2" class="sr-only">Medicine</label>
+		    <label for="med" class="sr-only">Medicine</label>
 		    <input name="txtmed" type="text" class="form-control" id="med" value="<?php echo $medicine; ?>">
 		</div>
 
         <div class="form-group mx-sm-5 mb-2">
-		    <label for="inputPassword2" class="sr-only">Report</label>
+		    <label for="report" class="sr-only">Report</label>
 		    <input name="reportfile" type="file" class="form-control" id="report" value="<?php echo $report; ?>">
 		</div>
 
