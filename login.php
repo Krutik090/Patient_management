@@ -26,7 +26,7 @@ if (isset($_POST['btnsubmit'])) {
     <div class="alert alert-danger" role="alert">
       Fill Both Fields
     </div>
-  <?php
+    <?php
   }
 }
 
@@ -45,11 +45,31 @@ if (isset($_POST['btnsubmit'])) {
     <div class="form-floating">
       <input name="txtpassword" type="password" class="form-control" id="floatingPassword" placeholder="Password">
       <label for="floatingPassword">Password</label>
+      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
+      <span toggle="#txtpassword" class="field-icon toggle-password fa fa-fw fa-eye"></span>
     </div>
-
-
     <button class="w-100 btn btn-lg btn-primary" type="submit" name="btnsubmit">Login</button>
     <h6 class="mt-3">Don't have an account <a href="register.php">Create your account</a></h6>
   </form>
 </main>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".toggle-password").click(function () {
+      // Get the target input field
+      var input = $($(this).attr("toggle"));
+      // Toggle the type attribute of password input
+      if (input.attr("type") == "password") {
+        input.attr("type", "text");
+        $(this).toggleClass('fa-eye fa-eye-slash');
+      } else {
+        input.attr("type", "password");
+        $(this).toggleClass('fa-eye-slash fa-eye');
+      }
+    });
+  });
+</script>
+
 <?php require "includes/footer.php"; ?>
