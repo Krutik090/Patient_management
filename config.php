@@ -317,6 +317,33 @@ try {
     }
 }
 
+function adminRegister($email,$username,$password,$cpassword,$checkqry,$rqry){
+    $login = $this->conn->query($checkqry);
+    $login->execute();
+    
+    if($login->rowCount()>0){?>
+            <div class="alert alert-danger" role="alert">
+               Email has Already Registered, Try Another Email!!!
+            </div>
+    <?php }else{
+        if($password == $cpassword){
+      $insert = $this->conn->prepare($rqry);
+
+      $insert->execute([
+        ':email' => $email,
+        ':username' =>$username,
+        ':mypassword' => password_hash($password,PASSWORD_DEFAULT),
+      ]);
+      header("location:adminlogin.php");
+    }else{ ?>
+            <div class="alert alert-danger" role="alert">
+               Password Must be same!!!
+            </div>
+
+    <?php
+    }
+}
+}
     function adminLogin($email,$password){
         $login = $this->conn->query("SELECT * FROM tbladmin WHERE uemail='$email'");
         $login->execute();

@@ -3,7 +3,7 @@
 
 <?php 
 $obj = new PetientData();
-if(isset($_SESSION['username'])){
+if(isset($_SESSION['admin'])){
   header("location:admincontrol.php");
 }
 
@@ -16,7 +16,7 @@ if(isset($_SESSION['username'])){
       $cpassword = $_POST['txtpassword2'];
       $checkqry = "SELECT * FROM users WHERE email= '$email'";
       $rqry = "INSERT INTO tbladmin(uemail,username,mypassword) VALUES(:email,:username,:mypassword)";
-      $obj->register($email,$username,$password,$cpassword,$checkqry,$rqry);
+      $obj->adminRegister($email,$username,$password,$cpassword,$checkqry,$rqry);
      
     }else{?>
       <div class="alert alert-danger" role="alert">
