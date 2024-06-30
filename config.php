@@ -36,12 +36,13 @@ class PetientData{
     }
 
 
-    function insertData($pid,$pname,$age,$pweight,$gender,$addr,$cno,$medicine,$date,$time,$Report){
-        $insert = $this->conn->prepare("INSERT INTO petient_data (pid,pname,age,pweight,gender,addr,cno,medicine,pdate,ptime,Report) VALUES (:pid,:pname,:age,:pweight,:gender,:addr,:cno,:med,:pdate,:ptime,:report)");
+    function insertData($pid,$pname,$ref,$age,$pweight,$gender,$addr,$cno,$medicine,$date,$time,$Report){
+        $insert = $this->conn->prepare("INSERT INTO petient_data (pid,pname,reference,age,pweight,gender,addr,cno,medicine,pdate,ptime,Report) VALUES (:pid,:pname,:reference,:age,:pweight,:gender,:addr,:cno,:med,:pdate,:ptime,:report)");
 
         $cnt = $insert->execute([
          ':pid'=>$pid,
          ':pname'=>$pname,
+         ':reference'=>$ref,
          ':age'=>$age,
          ':pweight'=>$pweight,
          ':gender'=>$gender,
@@ -57,10 +58,11 @@ class PetientData{
     }
 
     //Update data with Report file
-    function updateDataReport($rid,$pname,$age,$pweight,$gender,$addr,$cno,$medicine,$date,$Report,$time){
+    function updateDataReport($rid,$pname,$ref,$age,$pweight,$gender,$addr,$cno,$medicine,$date,$Report,$time){
         
         $sql = "UPDATE petient_data 
       SET pname = :pname, 
+          reference = :reference,  
           age = :age, 
           pweight = :pweight, 
           gender = :gender, 
@@ -75,6 +77,7 @@ class PetientData{
         $stmt = $this->conn->prepare($sql);
 
         $stmt->bindParam(':pname', $pname, PDO::PARAM_STR);
+        $stmt->bindParam(':reference',$ref, PDO::PARAM_STR);
         $stmt->bindParam(':rid', $rid, PDO::PARAM_INT);
         $stmt->bindParam(':pweight', $pweight, PDO::PARAM_INT);
         $stmt->bindParam(':age', $age, PDO::PARAM_INT);
@@ -92,10 +95,11 @@ class PetientData{
         
     }
     // Update Data without Report File
-    function updateData($rid,$pname,$age,$pweight,$gender,$addr,$cno,$medicine,$date,$time){
+    function updateData($rid,$pname,$ref,$age,$pweight,$gender,$addr,$cno,$medicine,$date,$time){
 
       $sql = "UPDATE petient_data 
-      SET pname = :pname, 
+      SET pname = :pname,
+          reference=:reference,  
           age = :age, 
           pweight = :pweight, 
           gender = :gender, 
@@ -109,6 +113,7 @@ class PetientData{
         $stmt = $this->conn->prepare($sql);
 
         $stmt->bindParam(':pname', $pname, PDO::PARAM_STR);
+        $stmt->bindParam(':reference',$ref, PDO::PARAM_STR);
         $stmt->bindParam(':rid', $rid, PDO::PARAM_INT);
         $stmt->bindParam(':pweight', $pweight, PDO::PARAM_INT);
         $stmt->bindParam(':age', $age, PDO::PARAM_INT);
@@ -176,7 +181,7 @@ class PetientData{
 
     
 //Create an instance; passing `true` enables exceptions 
-function mailSender($pid,$name, $age, $weight, $gender, $addr, $cno, $med, $date,$time,$report){
+function mailSender($pid,$name,$ref ,$age, $weight, $gender, $addr, $cno, $med, $date,$time,$report){
 
     $qry = $this->conn->query("SELECT * FROM users WHERE id= '$pid'");
         $qry->execute();

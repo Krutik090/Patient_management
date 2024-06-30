@@ -22,6 +22,7 @@ if(isset($_GET["upd_id"])) {
     // furthur we can fill that data in the form so user can update it
     $rows=$obj->search($rid);
     $name = $rows->pname;
+    $ref = $rows->reference;
     $age = $rows->age;
     $weight=$rows->pweight;
     $gender = $rows->gender;
@@ -36,6 +37,7 @@ if(isset($_GET["upd_id"])) {
 // cheking if Update button is clicked or not
 if(isset($_POST['btnupdate'])){
         $name = $_POST['txtname'];
+        $ref = $_POST['txtref'];
         $age = $_POST['txtage'];
         $weight = $_POST['txtweight'];
         $gender = $_POST['gender'];
@@ -50,10 +52,10 @@ if(isset($_POST['btnupdate'])){
         if(isset($_FILES['reportfile'])){
            $report = "reports/".$name."_report.pdf";
            move_uploaded_file($_FILES['reportfile']['tmp_name'],"reports/".$name."_report.pdf");
-           $cnt = $obj->updateDataReport($rid,$name,$age,$weight,$gender,$addr,$cno,$med,$date,$report,$time);
+           $cnt = $obj->updateDataReport($rid,$name,$ref,$age,$weight,$gender,$addr,$cno,$med,$date,$report,$time);
         }else{
             // Otherwise call method without UPDATE Reports
-            $cnt = $obj->updateData($rid,$name,$age,$weight,$gender,$addr,$cno,$med,$date,$time);
+            $cnt = $obj->updateData($rid,$name,$ref,$age,$weight,$gender,$addr,$cno,$med,$date,$time);
     
         }
       
@@ -91,6 +93,10 @@ if(isset($_POST['btnupdate'])){
 		<div class="form-group mx-sm-5 mb-2">
 		    <label for="inputPassword2" class="sr-only">Name</label>
 		    <input name="txtname" type="text" class="form-control" id="name" value="<?php echo $name; ?>">
+		</div>
+        <div class="form-group mx-sm-5 mb-2">
+		    <label for="ref" class="sr-only">Reference</label>
+		    <input name="txtref" type="text" class="form-control" id="ref" value="<?php echo $ref; ?>">
 		</div>
 
         <div class="form-group mx-sm-5 mb-2">
