@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2024 at 02:50 PM
+-- Generation Time: Jul 27, 2024 at 06:23 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `petient_data` (
   `pname` varchar(200) NOT NULL,
+  `pstatus` int(10) NOT NULL,
   `age` int(10) NOT NULL,
   `pweight` float NOT NULL,
   `gender` varchar(10) NOT NULL,
@@ -37,18 +38,37 @@ CREATE TABLE `petient_data` (
   `medicine` varchar(500) NOT NULL,
   `report` varchar(100) NOT NULL,
   `pid` int(10) NOT NULL,
-  `rid` int(10) NOT NULL
+  `rid` int(10) NOT NULL,
+  `pdate` date NOT NULL,
+  `ptime` varchar(10) NOT NULL,
+  `reference` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `petient_data`
 --
 
-INSERT INTO `petient_data` (`pname`, `age`, `pweight`, `gender`, `addr`, `cno`, `medicine`, `report`, `pid`, `rid`) VALUES
-('krutik', 23, 82, 'male', 'Karamsad            ', 9328068456, 'azithromacine', '', 2, 2),
-('krutik', 32, 50, 'male', 'anand             ', 9328068456, 'azithromacine', '', 2, 6),
-('vivek jhala', 22, 58, 'male', '38, jagabhai park                                    ', 7802853147, 'on insuline', 'reports/vivek jhala_report.pdf', 2, 9),
-('smiyu', 10, 45, 'male', 'bakrol', 784561397, 'kasuy nai', 'reports/smiyu_report.pdf', 2, 10);
+INSERT INTO `petient_data` (`pname`, `pstatus`, `age`, `pweight`, `gender`, `addr`, `cno`, `medicine`, `report`, `pid`, `rid`, `pdate`, `ptime`, `reference`) VALUES
+('krutik thakar', 0, 23, 82, 'male', 'karamsad            ', 9328068456, 'azithromacine', 'reports/krutik thakar_report.pdf', 2, 12, '2024-07-23', '8PM-9PM', 'vivek');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbladmin`
+--
+
+CREATE TABLE `tbladmin` (
+  `username` varchar(100) NOT NULL,
+  `uemail` varchar(50) NOT NULL,
+  `mypassword` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbladmin`
+--
+
+INSERT INTO `tbladmin` (`username`, `uemail`, `mypassword`) VALUES
+('admin', 'admin@123.com', '$2y$10$KUX93NU61w155qz7jbVJseufPycl7Xey.hhtg8JG9Gc4bzB8j20iu');
 
 -- --------------------------------------------------------
 
@@ -98,7 +118,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `petient_data`
 --
 ALTER TABLE `petient_data`
-  MODIFY `rid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `rid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
