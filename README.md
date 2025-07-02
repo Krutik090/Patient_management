@@ -22,9 +22,8 @@ Managing patient records manually is outdated and error-prone. This application 
 
 ---
 
-## 🗂️ Project Structure
+## 🗂 Directory Map
 
-```
 
 Patient\_management/
 ├── config/                 # Database connection script
@@ -39,7 +38,6 @@ Patient\_management/
 ├── README.md               # Project documentation
 └── LICENSE                 # License info
 
-````
 
 ---
 
